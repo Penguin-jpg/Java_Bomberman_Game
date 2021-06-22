@@ -38,8 +38,8 @@ public abstract class Creature extends Entity {
         if (velocity.x > 0.0f) { //往右
             int gridX = (int) (position.x + velocity.x + boundingRect.x + boundingRect.width) / Tile.TILE_WIDTH;
             //檢查右上角和右下角的碰撞
-            if (!hasCollisionWithTile(gridX, (int) (position.y + boundingRect.y) / Tile.TILE_HEIGHT)
-                    && !hasCollisionWithTile(gridX, (int) (position.y + boundingRect.y + boundingRect.height))) {
+            if (!hasCollisionWithSolidTile(gridX, (int) (position.y + boundingRect.y) / Tile.TILE_HEIGHT)
+                    && !hasCollisionWithSolidTile(gridX, (int) (position.y + boundingRect.y + boundingRect.height))) {
                 position.x += velocity.x;
             } else {
                 position.x = gridX * Tile.TILE_WIDTH - boundingRect.x - boundingRect.width - 1;
@@ -47,8 +47,8 @@ public abstract class Creature extends Entity {
         } else if (velocity.x < 0.0f) { //往左
             int gridX = (int) (position.x + velocity.x + boundingRect.x) / Tile.TILE_WIDTH;
             //檢查左上角和左下角的碰撞
-            if (!hasCollisionWithTile(gridX, (int) (position.y + boundingRect.y) / Tile.TILE_HEIGHT)
-                    && !hasCollisionWithTile(gridX, (int) (position.y + boundingRect.y + boundingRect.height))) {
+            if (!hasCollisionWithSolidTile(gridX, (int) (position.y + boundingRect.y) / Tile.TILE_HEIGHT)
+                    && !hasCollisionWithSolidTile(gridX, (int) (position.y + boundingRect.y + boundingRect.height))) {
                 position.x += velocity.x;
             } else {
                 position.x = gridX * Tile.TILE_WIDTH + Tile.TILE_WIDTH - boundingRect.x;
@@ -61,8 +61,8 @@ public abstract class Creature extends Entity {
         if (velocity.y > 0.0f) { //往下
             int gridY = (int) (position.y + velocity.y + boundingRect.y + boundingRect.height) / Tile.TILE_HEIGHT;
             //檢查左下角和右下角
-            if (!hasCollisionWithTile((int) (position.x + boundingRect.x) / Tile.TILE_WIDTH, gridY)
-                    && !hasCollisionWithTile((int) (position.x + boundingRect.x + boundingRect.width) / Tile.TILE_WIDTH, gridY)) {
+            if (!hasCollisionWithSolidTile((int) (position.x + boundingRect.x) / Tile.TILE_WIDTH, gridY)
+                    && !hasCollisionWithSolidTile((int) (position.x + boundingRect.x + boundingRect.width) / Tile.TILE_WIDTH, gridY)) {
                 position.y += velocity.y;
             } else {
                 position.y = gridY * Tile.TILE_HEIGHT - boundingRect.y - boundingRect.height - 1;
@@ -70,8 +70,8 @@ public abstract class Creature extends Entity {
         } else if (velocity.y < 0.0f) { //往上
             int gridY = (int) (position.y + velocity.y + boundingRect.y) / Tile.TILE_HEIGHT;
             //檢查左上角和右上角
-            if (!hasCollisionWithTile((int) (position.x + boundingRect.x) / Tile.TILE_WIDTH, gridY)
-                    && !hasCollisionWithTile((int) (position.x + boundingRect.x + boundingRect.width) / Tile.TILE_WIDTH, gridY)) {
+            if (!hasCollisionWithSolidTile((int) (position.x + boundingRect.x) / Tile.TILE_WIDTH, gridY)
+                    && !hasCollisionWithSolidTile((int) (position.x + boundingRect.x + boundingRect.width) / Tile.TILE_WIDTH, gridY)) {
                 position.y += velocity.y;
             } else {
                 position.y = gridY * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - boundingRect.y;
@@ -80,7 +80,7 @@ public abstract class Creature extends Entity {
     }
 
     //檢查與solid tile的碰撞
-    private boolean hasCollisionWithTile(int x, int y) {
+    private boolean hasCollisionWithSolidTile(int x, int y) {
         return handler.getMap().isSolidTile(x, y);
     }
 
